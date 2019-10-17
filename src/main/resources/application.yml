@@ -1,0 +1,71 @@
+
+kafka:
+  inbound-msg-location:
+    bootstrap-servers: kafkahost:9092
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      properties:
+        linger.ms: 1
+    consumer:
+      enable-auto-commit: false
+      auto-commit-interval: 100ms
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      properties:
+        session.timeout.ms: 15000
+    topic:
+      group-id: gateway809location
+      topic-name: inbound-msg-location
+
+  inbound-msg:
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      properties:
+        linger.ms: 1
+    consumer:
+      enable-auto-commit: false
+      auto-commit-interval: 100ms
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      properties:
+        session.timeout.ms: 15000
+    topic:
+      group-id: gateway809
+      topic-name: inbound-msg
+
+  change-notice:
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      properties:
+        linger.ms: 1
+    consumer:
+      enable-auto-commit: false
+      auto-commit-interval: 100ms
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      properties:
+        session.timeout.ms: 15000
+  topic:
+    group-id: gateway809
+    topic-name: change-notice
+
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: dddd
+
+
+    producer:
+      bootstrap-servers: dddd
