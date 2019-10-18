@@ -1,7 +1,5 @@
 package com.cccts.kafkasend808;
 
-import com.cccts.kafkasend808.kafka.InboundMsgLocationService;
-import com.cccts.kafkasend808.kafka.InboundMsgService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,15 +118,12 @@ public class Kafkasend808ApplicationTests {
     }
 
 
-    @Autowired
-    private InboundMsgLocationService inboundMsgLocationService;
     private void sendMsgLocation(int n, byte[] bs) {
         for (int i = 0; i < n; i++) {
 //            inboundMsgLocationService.publish(bs);
         }
     }
 
-    private InboundMsgService inboundMsgService;
     private void sendMsg(int n, byte[] bs) {
         for (int i = 0; i < n; i++) {
 //            inboundMsgService.publish(bs);

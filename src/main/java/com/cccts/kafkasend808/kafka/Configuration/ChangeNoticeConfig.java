@@ -50,6 +50,7 @@ public class ChangeNoticeConfig {
         return new DefaultKafkaConsumerFactory<>(changeNoticeConsumerConfigs());
     }
 
+//    kafkaListenerContainerFactory 必须是这样的命名
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
