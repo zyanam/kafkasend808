@@ -1,8 +1,9 @@
 package com.cccts.kafkasend808;
 
-import com.cccts.kafkasend808.kafka.Configuration.InboundMsgLocationProperties;
-import com.cccts.kafkasend808.kafka.InboundMsgLocationService;
-import com.cccts.kafkasend808.kafka.InboundMsgService;
+import com.alibaba.fastjson.JSON;
+import com.cccts.kafkasend808.kafka.ChangeNoticeService;
+import com.zjts.commonmessagemodels.changenotice.ChanageNoticeHelper;
+import com.zjts.commonmessagemodels.changenotice.InspectRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,80 +19,9 @@ public class Kafkasend808ApplicationTests {
     @Autowired
     Util util;
 
-    @Autowired
-    InboundMsgService inboundMsgService;
-
-    @Autowired
-    InboundMsgLocationService inboundMsgLocationService;
 
     @Test
     public void contextLoads() {
-    }
-
-    @Test
-    public void test0102() {
-        int n = 1;
-
-        String msg = "01 02 00 06 04 56 45 64 56 11 00 01 61 62 63 61 62 63";
-        byte[] bs = util.getBytesBySpace(msg);
-
-        sendMsg(n, bs);
-    }
-
-    @Test
-    public void test0200() {
-        int n = 5;
-        String msg = "02 00 00 57 04 56 45 64 56 11 01 06 00 00 00 00 00 00 00 01 01 5A E0 E7 06 CA 13 3E 00 00 00 00 00 00 19 05 29 09 33 51 01 04 00 00 00 00 02 02 00 00 03 02 00 00 14 04 00 00 00 00 15 04 00 00 00 00 16 04 00 00 00 00 17 02 00 00 18 03 00 00 00 25 04 00 00 00 00 2B 04 00 00 00 00 30 01 00 31 01 00";
-        byte[] bs = util.getBytesBySpace(msg);
-
-        sendMsgLocation(n, bs);
-    }
-
-    /**
-     * 报警、进区域
-     */
-    @Test
-    public void test0200AlarmIn() {
-        int n = 1;
-
-        String msg = "02000039045645645611000a149420071efb78c301cb998e068251210322029e001e19101413560201040001e848020200640302029e110501000000011206010000000100";
-        byte[] bs = util.getBytes(msg);
-
-        sendMsgLocation(n, bs);
-    }
-
-    /**
-     * 报警、出区域
-     */
-    @Test
-    public void test0200AlarmOut() {
-        int n = 1;
-
-        String msg = "02000039045645645611000e149420071efb78c301cb998e068251210322029e001e19101413570201040001e848020200640302029e110501000000011206010000000101";
-        byte[] bs = util.getBytes(msg);
-
-        sendMsgLocation(n, bs);
-    }
-
-    @Test
-    public void test0701() {
-        int n = 1;
-
-        String msg = "0701001D04564564561100E600000019B5E7D7D3D4CBB5A5CAFDBEDDA3BABFAACDF9CCECBDF2313233";
-        byte[] bs = util.getBytes(msg);
-
-        sendMsg(n, bs);
-    }
-
-    @Test
-    public void test0702() {
-        int n = 1;
-
-        //2011版
-        String msg = "0702004804564564561100E904D5C5C1C131303100000000000000000000000000000000004131000000000000000000000000000000000000000000000000000000000000000000000000000006BDBBCDA8B2BF";
-        byte[] bs = util.getBytes(msg);
-
-        sendMsg(n, bs);
     }
 
 //    @Test
@@ -107,36 +37,32 @@ public class Kafkasend808ApplicationTests {
 
     @Test
     public void testChangeNoticeTopic() {
-//        InspectRequest inspectRequest = new InspectRequest();
-//        inspectRequest.setObjectType((byte) 0x01);
-//        inspectRequest.setObjectID("test");
-//        inspectRequest.setInfoID(1234);
-//        inspectRequest.setInfoContent("中国首都是?");
-//
-//        String json = JSON.toJSONString(inspectRequest);
-//        Byte b = ChanageNoticeHelper.getKeyByClass(InspectRequest.class);
-//        changeNoticeService.publish(b, json);
+        InspectRequest inspectRequest = new InspectRequest();
+        inspectRequest.setObjectType((byte) 0x01);
+        inspectRequest.setObjectID("test");
+        inspectRequest.setInfoID(1234);
+        inspectRequest.setInfoContent("中国首都是?");
+
+        String json = JSON.toJSONString(inspectRequest);
+        Byte b = ChanageNoticeHelper.getKeyByClass(InspectRequest.class);
     }
+
 
     @Autowired
-    private InboundMsgLocationProperties inboundMsgLocationProperties;
+    private ChangeNoticeService changeNoticeService;
 
     @Test
-    public void testCustomeKafka() {
-        System.out.println(inboundMsgLocationProperties);
+    public void testKafkaProperties() {
+        //changeNoticeService.publish("kkkk", "vvvv");
+        InspectRequest inspectRequest = new InspectRequest();
+        inspectRequest.setObjectType((byte) 0x01);
+        inspectRequest.setObjectID("test");
+        inspectRequest.setInfoID(1234);
+        inspectRequest.setInfoContent("中国首都是?");
+
+        changeNoticeService.publish("key", "vvvv");
     }
 
-    private void sendMsgLocation(int n, byte[] bs) {
-        for (int i = 0; i < n; i++) {
-            inboundMsgLocationService.publish(bs);
-        }
-    }
-
-    private void sendMsg(int n, byte[] bs) {
-        for (int i = 0; i < n; i++) {
-            inboundMsgService.publish(bs);
-        }
-    }
 
     /**
      * 根据车牌号和车牌颜色生成可以作为redis的key的字符串
