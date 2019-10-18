@@ -2,10 +2,8 @@ package com.cccts.kafkasend808.kafka;
 
 import com.zjts.beidou.agreement.Message808;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
 
-@Configuration
 public class InboundMsgLocationService {
 
 
