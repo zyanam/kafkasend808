@@ -1,7 +1,5 @@
 package com.cccts.kafkasend808;
 
-import com.cccts.kafkasend808.kafka.ChangeNoticeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,9 +10,6 @@ public class Kafkasend808Application implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(Kafkasend808Application.class, args);
     }
-
-    @Autowired
-    private ChangeNoticeService changeNoticeService;
 
     @Override
     public void run(String... args) throws Exception {

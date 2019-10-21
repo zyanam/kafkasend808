@@ -12,41 +12,22 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 @Component
-public class InboundMsgService {
-
-    @Autowired
-    private KafkaTemplate<String, Message808> msg808KafkaTemplate;
-
+public class InboundMsgLocationService {
     @Autowired
     private KafkaTemplate<String, byte[]> byteArrayKafkaTemplate;
 
-    @Value("${kafka-topics.inbound-msg.topic-name}")
+    @Value("${kafka-topics.inbound-msg-location.topic-name}")
     private String inboundMsgTopic;
 
-    @Value("${kafka-topics.inbound-msg.group-id}")
+    @Value("${kafka-topics.inbound-msg-location.group-id}")
     private String inboundMsgGroupID;
 
-    @KafkaListener(topics = "${kafka-topics.inbound-msg.topic-name}",
-            groupId = "${kafka-topics.inbound-msg.group-id}",
+    @KafkaListener(topics = "${kafka-topics.inbound-msg-location.topic-name}",
+            groupId = "${kafka-topics.inbound-msg-location.group-id}",
             containerFactory = "msg808ListenerContainerFactory",
-            clientIdPrefix = "inbound-msg")
+            clientIdPrefix = "inbound-location-msg")
     public void listen(ConsumerRecord<String, Message808> record) {
-        System.out.println("InboundMsgService.listen,record.key=" + record.key() + ",record.value=" + record.value());
-    }
-
-    public void publish(Message808 msg808) {
-        ListenableFuture<SendResult<String, Message808>> future = msg808KafkaTemplate.send(this.inboundMsgTopic, msg808);
-        future.addCallback(new ListenableFutureCallback<SendResult<String, Message808>>() {
-            @Override
-            public void onFailure(Throwable throwable) {
-                System.out.println("InboundMsgService.onFailure," + "发送错误");
-            }
-
-            @Override
-            public void onSuccess(SendResult<String, Message808> stringMessage808SendResult) {
-                System.out.println("InboundMsgService.onSuccess," + "发送失败");
-            }
-        });
+        System.out.println("InboundMsgLocationService.listen," + record.value());
     }
 
     public void publish(byte[] bs) {
@@ -54,12 +35,12 @@ public class InboundMsgService {
         future.addCallback(new ListenableFutureCallback<SendResult<String, byte[]>>() {
             @Override
             public void onFailure(Throwable throwable) {
-                System.out.println("InboundMsgService.onFailure," + "发送失败");
+                System.out.println("InboundMsgLocationService.onFailure," + "发送失败");
             }
 
             @Override
             public void onSuccess(SendResult<String, byte[]> stringSendResult) {
-                System.out.println("InboundMsgService.onSuccess," + "发送成功");
+                System.out.println("InboundMsgLocationService.onSuccess," + "发送成功");
             }
         });
     }

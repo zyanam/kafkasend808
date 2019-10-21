@@ -1,6 +1,7 @@
 package com.cccts.kafkasend808;
 
 import com.cccts.kafkasend808.kafka.ChangeNoticeService;
+import com.cccts.kafkasend808.kafka.InboundMsgLocationService;
 import com.cccts.kafkasend808.kafka.InboundMsgService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -122,10 +123,12 @@ public class Kafkasend808ApplicationTests {
 //        changeNoticeService.publish(b, json);
     }
 
+    @Autowired
+    private InboundMsgLocationService inboundMsgLocationService;
 
     private void sendMsgLocation(int n, byte[] bs) {
         for (int i = 0; i < n; i++) {
-//            inboundMsgLocationService.publish(bs);
+            inboundMsgLocationService.publish(bs);
         }
     }
 
