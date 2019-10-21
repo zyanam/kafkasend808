@@ -1,5 +1,7 @@
 package com.cccts.kafkasend808;
 
+import com.cccts.kafkasend808.kafka.ChangeNoticeService;
+import com.cccts.kafkasend808.kafka.InboundMsgService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +95,9 @@ public class Kafkasend808ApplicationTests {
         sendMsg(n, bs);
     }
 
+    @Autowired
+    private ChangeNoticeService changeNoticeService;
+
 //    @Test
 //    public void test() {
 //        String key = getVehicleKey("冀R12345", (short) 2);
@@ -124,9 +129,12 @@ public class Kafkasend808ApplicationTests {
         }
     }
 
+    @Autowired
+    private InboundMsgService inboundMsgService;
+
     private void sendMsg(int n, byte[] bs) {
         for (int i = 0; i < n; i++) {
-//            inboundMsgService.publish(bs);
+            inboundMsgService.publish(bs);
         }
     }
 

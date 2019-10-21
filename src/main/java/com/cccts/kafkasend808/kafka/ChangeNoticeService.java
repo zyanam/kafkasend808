@@ -14,8 +14,9 @@ public class ChangeNoticeService {
 
     @KafkaListener(topics = "${kafka-topics.change-notice.topic-name}",
             groupId = "${kafka-topics.change-notice.group-id}",
-            containerFactory = "kafkaListenerContainerFactory")
-    public void listen(ConsumerRecord<String, String> record) {
+            containerFactory = "stringListenerContainerFactory",
+            clientIdPrefix = "change-notice")
+    public void listen(ConsumerRecord<Byte, String> record) {
         System.out.println("ChangeNoticeService.listen," + record.value());
     }
 
