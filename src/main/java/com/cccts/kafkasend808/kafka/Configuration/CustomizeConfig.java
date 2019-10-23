@@ -148,4 +148,17 @@ public class CustomizeConfig {
         factory.setConsumerFactory(stringConsumerFactory());
         return factory;
     }
+
+    //key=String,value=byte[]
+    @Bean
+    public ConsumerFactory<String, byte[]> byteArrayConsumerFactory() {
+        return new DefaultKafkaConsumerFactory<>(stringConsumerConfigs());
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, byte[]> byteArrayListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, byte[]> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(byteArrayConsumerFactory());
+        return factory;
+    }
 }

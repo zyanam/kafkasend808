@@ -34,6 +34,9 @@ kafka-topics:
   inbound-msg-location:
     group-id: gateway809location
     topic-name: inbound-msg-location
+  outbound-msg:
+    group-id: gateway809
+    topic-name: outbound-msg
   change-notice:
     group-id: gateway809
     topic-name: change-notice
