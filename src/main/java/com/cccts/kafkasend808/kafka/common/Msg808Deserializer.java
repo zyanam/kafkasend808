@@ -19,13 +19,11 @@ public class Msg808Deserializer implements Deserializer<Message808> {
     }
 
 
-
     @Override
     public Message808 deserialize(String topic, byte[] bs) {
         Date now = new Date();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        System.out.println(df.format(now) + "," +ByteBufUtil.hexDump(bs));
         ByteBuf buf = Unpooled.copiedBuffer(bs);
 
         try {
@@ -34,9 +32,11 @@ public class Msg808Deserializer implements Deserializer<Message808> {
 
             Message808 msg808 = new Message808();
             msg808.read(buf);
+
+            System.out.println(df.format(now) + "," + msg808 + "," + ByteBufUtil.hexDump(bs));
             return msg808;
         } catch (Exception e) {
-            System.out.println("Msg808Deserializer.deserialize,错误,e=");
+            System.out.println(df.format(now) + ",Msg808Deserializer.deserialize,错误,bs=" + ByteBufUtil.hexDump(bs));
         } finally {
             buf.release();
         }
