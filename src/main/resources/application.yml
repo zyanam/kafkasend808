@@ -37,8 +37,8 @@ kafka-topics:
   outbound-msg:
     group-id: gateway809
     topic-name: outbound-msg
-  change-notice:
+  inbound-msg-media:
     group-id: gateway809
-    topic-name: change-notice
+    topic-name: inbound-msg-media
 
 
