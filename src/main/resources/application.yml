@@ -29,16 +29,16 @@ spring:
 
 kafka-topics:
   inbound-msg:
-    group-id: gateway809
+    group-id: gateway8091
     topic-name: inbound-msg
   inbound-msg-location:
-    group-id: gateway809location
+    group-id: gateway809location1
     topic-name: inbound-msg-location
   outbound-msg:
-    group-id: gateway809
+    group-id: gateway8091
     topic-name: outbound-msg
   change-notice:
-    group-id: gateway809
+    group-id: gateway8091
     topic-name: change-notice
 
 

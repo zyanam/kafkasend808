@@ -18,9 +18,10 @@ public class OutboundMsgTest {
     private Util util;
 
     @Test
-    public void test8001() {
+    public void test8300() {
         String msg = "8300000d06462062390300033dcec4b1becffbcfa2b2e2cad4";
         byte[] bs = util.getBytes(msg);
         outboundMsgService.publish(bs);
     }
+
 }
