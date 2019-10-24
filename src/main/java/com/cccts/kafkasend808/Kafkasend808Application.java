@@ -1,8 +1,14 @@
 package com.cccts.kafkasend808;
 
+import com.cccts.kafkasend808.kafka.OutboundMsgService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 @SpringBootApplication
 public class Kafkasend808Application implements CommandLineRunner {
@@ -11,9 +17,13 @@ public class Kafkasend808Application implements CommandLineRunner {
         SpringApplication.run(Kafkasend808Application.class, args);
     }
 
+    @Autowired
+    private OutboundMsgService outboundMsgService;
+
+
     @Override
     public void run(String... args) throws Exception {
-//        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 //        String s = scanner.nextLine();
 
 //        changeNoticeService.publish("k", "v");
@@ -25,18 +35,53 @@ public class Kafkasend808Application implements CommandLineRunner {
 //
 //        Scanner scanner = new Scanner(System.in);
 //
-//        while (true) {
-//            String s = scanner.next();
-//            try {
-//                int n = Integer.valueOf(s);
-//                for (int i = 0; i < n; i++) {
-//                    inboundMsgLocationService.publish(bs);
-//                    inboundMsgService.publish(bs);
-//                }
-//            } catch (Exception e) {
-//                System.out.println("请输入数字");
-//            }
-//        }
+        while (true) {
+            String s = scanner.next();
+            switch (s)
+            {
+                case "8103":
+                    String msg8103 = "81030013045645645612000b020000007004000000020000007404000000c8";
+                    byte[] bs8103 = getBytes(msg8103);
+                    outboundMsgService.publish(bs8103);
+                    break;
+                case "8104":
+                    String msg8104 = "81040000045645645612000d";
+                    byte[] bs8104 = getBytes(msg8104);
+                    outboundMsgService.publish(bs8104);
+                    break;
+                case "8300":
+                    String msg8300 = "8300000d06462062390300033dcec4b1becffbcfa2b2e2cad4";
+                    byte[] bs8300 = getBytes(msg8300);
+                    outboundMsgService.publish(bs8300);
+                    break;
+
+            }
+
+        }
+    }
+
+    public byte[] getBytesBySpace(String str) {
+        String[] strs = str.split(" ");
+        return getBytes(strs);
+    }
+
+    public byte[] getBytes(String str) {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < str.length(); i += 2) {
+            String s = str.substring(i, i + 2);
+            list.add(s);
+        }
+        return getBytes(list.toArray(new String[list.size()]));
+    }
+
+    private byte[] getBytes(String[] strs) {
+
+        byte[] bs = new byte[strs.length];
+
+        for (int i = 0; i < strs.length; i++) {
+            bs[i] = (byte) Integer.parseInt(strs[i], 16);
+        }
+        return bs;
     }
 
 
