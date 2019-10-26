@@ -76,6 +76,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.zjts</groupId>
+            <artifactId>commonnotice</artifactId>
+            <version>1.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.56</version>
