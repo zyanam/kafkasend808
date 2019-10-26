@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,9 @@ public class Kafkasend808Application implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(Kafkasend808Application.class, args);
     }
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     @Autowired
     private OutboundMsgService outboundMsgService;
@@ -35,10 +39,12 @@ public class Kafkasend808Application implements CommandLineRunner {
 //
 //        Scanner scanner = new Scanner(System.in);
 //
+        if (applicationContext.containsBeanDefinition("testing")) {
+            return;
+        }
         while (true) {
             String s = scanner.next();
-            switch (s)
-            {
+            switch (s) {
                 case "8103":
                     String msg8103 = "81030013045645645612000b020000007004000000020000007404000000c8";
                     byte[] bs8103 = getBytes(msg8103);
