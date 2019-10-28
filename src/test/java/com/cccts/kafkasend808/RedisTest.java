@@ -40,7 +40,7 @@ public class RedisTest {
         platform809JE.setProtocolType("51");
         platform809JE.setPlatformEnable(1);
         platform809JE.setUserPlatformId(1001);
-        platform809JE.setUserPlatformIp("192.168.89.220");
+        platform809JE.setUserPlatformIp("192.168.89.121");
         platform809JE.setPlatformCode("0");
         platform809JE.setSendRule(2);
 
@@ -70,5 +70,10 @@ public class RedisTest {
 
         Object obj = redisUtil.get("045645645611");
         System.out.println(obj);
+    }
+
+    @Test
+    public void setNfsPath() {
+        redisUtil.set("nfs_path", "D:/nfs1");
     }
 }
