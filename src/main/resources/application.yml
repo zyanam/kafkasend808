@@ -47,4 +47,11 @@ kafka-topics:
     group-id: test
     topic-name: inbound-msg-media
 
+hbase:
+  master: 192.168.89.115:60000
+  zookeeper:
+    quorum: 192.168.89.115:2181
+  #存储定位数据的表名
+  location-table:
+    name: x0110
 
